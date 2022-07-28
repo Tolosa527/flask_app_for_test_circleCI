@@ -39,7 +39,6 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: pytest
       - slack/notify:
-          custom:
             event: always
             template: basic_success_1
 
@@ -50,4 +49,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test:
-        context: slack-secrets
+          context: slack-secrets
