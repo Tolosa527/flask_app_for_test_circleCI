@@ -52,13 +52,11 @@ jobs:
       - image: cimg/python:3.7
     steps:
       - checkout
-      - add_ssh_keys:
-        - "09:40:8c:e3:a3:8a:68:d9:d6:56:52:e2:32:d8:a4:71"
       - run:
-        - name: Deploy on EC2
-        - command: |
-          cd ~/flask_app_for_test_circleCI; python3 deployment.py 
-          
+          name: Deploy Over SSH
+          command: |
+            ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
+            ssh $SSH_USERNAME@$SSH_HOST "cd flask_app_for_test_circleCI; git pull";
 workflows:
   deploy-and-test:
     jobs:
@@ -70,6 +68,9 @@ workflows:
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
               ignore: /.*/
+      - deploy:
+        required:
+          - test
   testing:
     jobs:
       - test:
