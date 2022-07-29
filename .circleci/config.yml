@@ -38,6 +38,20 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest
+  deploy:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
+            ssh $SSH_USERNAME@$SSH_HOST "cd flask_app_for_test_circleCI; git pull";
+      - slack/notify:
+          event: fail
+          mentions: '@EngineeringTeam'
+          template: basic_fail_1
       - slack/notify:
           event: fail
           mentions: '@EngineeringTeam'
