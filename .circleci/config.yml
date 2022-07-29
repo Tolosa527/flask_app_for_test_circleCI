@@ -56,8 +56,7 @@ jobs:
             ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
             ssh $SSH_USERNAME@$SSH_HOST "cd flask_app_for_test_circleCI; git pull";
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  deploy-and-test:
     jobs:
       - test:
           context: slack-secrets
@@ -67,3 +66,11 @@ workflows:
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
               ignore: /.*/
+  testing:
+    job:
+      - test:
+        context: slack-secrets
+        filters:
+              branches:
+                only:
+                  - main
