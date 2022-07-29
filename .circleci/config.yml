@@ -67,10 +67,10 @@ workflows:
             branches:
               ignore: /.*/
   testing:
-    job:
+    jobs:
       - test:
-        context: slack-secrets
-        filters:
-              branches:
-                only:
-                  - main
+          context: slack-secrets
+          filters:
+                branches:
+                  only:
+                    - main
