@@ -1,4 +1,5 @@
 from datetime import datetime
 
 if __name__ == "__main__":
-    print(f"This script was ran at {datetime.now()}")
+    with open("aux.txt", "w") as f:
+        f.write(f"This script was ran at {datetime.now()}")
