@@ -38,16 +38,6 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest
-  deploy:
-    docker:
-      - image: cimg/python:3.9
-    steps:
-      - checkout
-      - run:
-          name: Deploy Over SSH
-          command: |
-            ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-            ssh $SSH_USERNAME@$SSH_HOST "cd flask_app_for_test_circleCI; git pull";
       - slack/notify:
           event: fail
           mentions: '@EngineeringTeam'
@@ -61,7 +51,7 @@ jobs:
           template: success_tagged_deploy_1
   deploy:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - run:
@@ -69,8 +59,6 @@ jobs:
           command: |
             ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
             ssh $SSH_USERNAME@$SSH_HOST "cd flask_app_for_test_circleCI; git pull";
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
