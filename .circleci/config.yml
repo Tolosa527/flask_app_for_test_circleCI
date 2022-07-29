@@ -69,8 +69,8 @@ workflows:
             branches:
               ignore: /.*/
       - deploy:
-        required:
-          - test
+          requires:
+            - test
   testing:
     jobs:
       - test:
