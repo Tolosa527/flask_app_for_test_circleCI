@@ -71,6 +71,12 @@ workflows:
       - deploy:
           requires:
             - test
+          filters:
+                tags:
+                  only: 
+                - /^[0-9a-zA-Z]+.ci-prod/
+            branches:
+              ignore: /.*/
   testing:
     jobs:
       - test:
