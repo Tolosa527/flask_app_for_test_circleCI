@@ -72,8 +72,8 @@ workflows:
           requires:
             - test
           filters:
-                tags:
-                  only: 
+            tags:
+              only: 
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
               ignore: /.*/
