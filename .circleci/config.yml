@@ -69,9 +69,6 @@ workflows:
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
               ignore: /.*/
-      - deploy:
-          requires:
-            - test
   testing:
     jobs:
       - test:
