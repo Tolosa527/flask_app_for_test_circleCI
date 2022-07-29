@@ -62,6 +62,12 @@ workflows:
     jobs:
       - test:
           context: slack-secrets
+          filters:
+            tags:
+              only: 
+                - /^[0-9a-zA-Z]+.ci-prod/
+            branches:
+              ignore: /.*/  
       - deploy:
           requires:
             - test
