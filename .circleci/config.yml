@@ -47,7 +47,7 @@ jobs:
       - slack/notify:
           event: pass
           template: success_tagged_deploy_1
-  deploy:
+  deploy_python_any_where:
     docker:
       - image: cimg/python:3.9
     steps:
@@ -56,7 +56,18 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-            ssh $SSH_USERNAME@$SSH_HOST "cd flask_app_for_test_circleCI; git pull";
+            ssh $PYTHON_ANY_WHERE_USER@$PYTHON_ANY_WHERE_HOST "cd flask_app_for_test_circleCI; git pull";
+  deploy_ec2:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
+            ssh $EC2_USER@$EC2_HOST "cd flask_app_for_test_circleCI; git pull; python3 deployment.py";
+
 workflows:
   deploy-and-test:
     jobs:
@@ -64,11 +75,11 @@ workflows:
           context: slack-secrets
           filters:
             tags:
-              only: 
+              only: º
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
               ignore: /.*/  
-      - deploy:
+      - deploy_python_any_where:
           requires:
             - test
           filters:
@@ -76,4 +87,13 @@ workflows:
               only: 
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
-              ignore: /.*/          
+              ignore: /.*/
+      - deploy_ec2:
+          requires:
+            - deploy_python_any_where
+          filters:
+            tags:
+              only: 
+                - /^[0-9a-zA-Z]+.ci-prod/
+            branches:
+              ignore: /.*/       
