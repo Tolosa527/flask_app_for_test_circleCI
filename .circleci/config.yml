@@ -49,7 +49,7 @@ jobs:
           template: success_tagged_deploy_1
   deploy:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - run:
@@ -58,7 +58,6 @@ jobs:
             ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
             ssh $SSH_USERNAME@$SSH_HOST "cd flask_app_for_test_circleCI; git pull";
 workflows:
-  version: 2
   deploy-and-test:
     jobs:
       - test:
@@ -69,6 +68,9 @@ workflows:
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
               ignore: /.*/
+      - deploy:
+          requires:
+            - test
   testing:
     jobs:
       - test:
