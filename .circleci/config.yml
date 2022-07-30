@@ -65,7 +65,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh-keyscan -H 18.130.246.222 >> ~/.ssh/known_hosts
+            ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
             ssh $EC2_USER@$EC2_HOST "cd flask_app_for_test_circleCI; git pull; python3 deployment.py";
 
 workflows:
