@@ -49,7 +49,7 @@ jobs:
           template: success_tagged_deploy_1
   deploy_python_any_where:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.7
     steps:
       - checkout
       - run:
@@ -59,7 +59,7 @@ jobs:
             ssh $PYTHON_ANY_WHERE_USER@$PYTHON_ANY_WHERE_HOST "cd flask_app_for_test_circleCI; git pull";
   deploy_ec2:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.7
     steps:
       - checkout
       - run:
@@ -97,3 +97,11 @@ workflows:
                 - /^[0-9a-zA-Z]+.ci-prod/
             branches:
               ignore: /.*/
+  test_merge:
+    jobs:
+      - test:
+          context: slack-secrets
+          filters:
+            branches:
+              only:
+                - main
