@@ -63,7 +63,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-            ssh $PYTHON_ANY_WHERE_USER@$PYTHON_ANY_WHERE_HOST "cd flask_app_for_test_circleCI; source venv/bin/activate; ./reload.sh";
+            ssh $PYTHON_ANY_WHERE_USER@$PYTHON_ANY_WHERE_HOST "cd flask_app_for_test_circleCI; source venv/bin/activate; python3 deployment.py; ./reload.sh";
   deploy_ec2:
     docker:
       - image: cimg/python:3.7
