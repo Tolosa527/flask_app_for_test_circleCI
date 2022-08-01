@@ -52,6 +52,13 @@ jobs:
       - image: cimg/python:3.7
     steps:
       - checkout
+      - slack/notify:
+          event: fail
+          mentions: '@EngineeringTeam'
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
       - run:
           name: Deploy Over SSH
           command: |
@@ -62,6 +69,13 @@ jobs:
       - image: cimg/python:3.7
     steps:
       - checkout
+      - slack/notify:
+          event: fail
+          mentions: '@EngineeringTeam'
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
       - run:
           name: Deploy Over SSH
           command: |
