@@ -83,6 +83,7 @@ jobs:
             ssh $EC2_USER@$EC2_HOST "cd flask_app_for_test_circleCI; source venv/bin/activate; git pull; python3 deployment.py";
 
 workflows:
+  version: 2
   deploy-and-test:
     jobs:
       - test:
