@@ -95,6 +95,7 @@ workflows:
             branches:
               ignore: /.*/  
       - deploy_python_any_where:
+          context: slack-secrets
           requires:
             - test
           filters:
@@ -104,6 +105,7 @@ workflows:
             branches:
               ignore: /.*/
       - deploy_ec2:
+          context: slack-secrets
           requires:
             - deploy_python_any_where
           filters:
