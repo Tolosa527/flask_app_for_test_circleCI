@@ -104,7 +104,7 @@ workflows:
               ignore: /.*/
   test_merge:
     when:
-      and:
+      or:
         - equal: ["pull_request", << pipeline.parameters.GHA_Event >>]
         - equal: ["main", << pipeline.git.branch >>]
     jobs:
