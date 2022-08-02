@@ -1,8 +1,5 @@
-name: Trigger Build on PR
+name: Trigger Build on Push
 
-on:
-  pull_request:
-    types: [opened, reopened, syncronize]
 on:
   push:
     branches:
