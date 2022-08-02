@@ -1,4 +1,17 @@
 version: 2.1
+parameters:
+  GHA_Event:
+    type: string
+    default: ""
+  GHA_Actor:
+    type: string
+    default: ""
+  GHA_Action:
+    type: string
+    default: ""
+  GHA_Meta:
+    type: string
+    default: ""
 orbs:
   python: circleci/python@1.5.0
   slack: circleci/slack@4.10.1
@@ -90,6 +103,8 @@ workflows:
             branches:
               ignore: /.*/
   test_merge:
+    when:
+      equal: ["pull_request", << pipeline.parameters.GHA_Event >>]
     jobs:
       - test:
           context: slack-secrets
