@@ -108,7 +108,3 @@ workflows:
     jobs:
       - test:
           context: slack-secrets
-          filters:
-            branches:
-              only:
-                - main
