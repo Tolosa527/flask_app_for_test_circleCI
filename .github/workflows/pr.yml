@@ -3,6 +3,10 @@ name: Trigger Build on PR
 on:
   pull_request:
     types: [opened, reopened, syncronize]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   trigger-build:
