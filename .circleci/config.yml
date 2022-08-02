@@ -104,7 +104,9 @@ workflows:
               ignore: /.*/
   test_merge:
     when:
-      equal: ["pull_request", << pipeline.parameters.GHA_Event >>]
+      and:
+        equal: ["pull_request", << pipeline.parameters.GHA_Event >>]
+        equal: ["main", << pipeline.git.branch >>]
     jobs:
       - test:
           context: slack-secrets
