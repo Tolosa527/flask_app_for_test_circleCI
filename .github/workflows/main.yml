@@ -6,7 +6,6 @@ on:
 
 jobs:
   trigger-build:
-    if: ${{ (github.event.issue.pull_request && contains( github.event.comment.body, 'trigger.CI' ))  }} 
     runs-on: ubuntu-latest
     steps:
       - name: Trigger CircleCI Pipeline
