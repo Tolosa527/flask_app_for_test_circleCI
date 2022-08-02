@@ -105,8 +105,8 @@ workflows:
   test_merge:
     when:
       and:
-        equal: ["pull_request", << pipeline.parameters.GHA_Event >>]
-        equal: ["main", << pipeline.git.branch >>]
+        - equal: ["pull_request", << pipeline.parameters.GHA_Event >>]
+        - equal: ["main", << pipeline.git.branch >>]
     jobs:
       - test:
           context: slack-secrets
